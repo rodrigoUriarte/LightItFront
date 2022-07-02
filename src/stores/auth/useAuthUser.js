@@ -31,10 +31,11 @@ export const useAuthUser = defineStore('authUser', {
                     this.email = response.data.email;
                     this.token.token = response.data.token.token;
                     this.token.expires_at = response.data.token.expires_at;
+                    this.$toast.add({severity:'success', summary: 'Login status', detail:'Successfully loggedIn', life: 3000});
                     this.$router.push({name: 'home'});
                 }
             }).catch((error) => {
-                console.log(error);
+                this.$toast.add({severity:'error', summary: 'Register status', detail:error.response.data.message, life: 3000});
             });
         },
 
@@ -44,11 +45,12 @@ export const useAuthUser = defineStore('authUser', {
                 ...credentials
             }).then((resp) => {
                 const response = resp.data;
-                if (response.metadata.code === 200) {
+                if (response.metadata.code === 201) {
+                    this.$toast.add({severity:'success', summary: 'Register status', detail:'Successfully registered', life: 3000});
                     this.$router.push({name: 'login'});
                 }
             }).catch((error) => {
-                console.log(error);
+                this.$toast.add({severity:'error', summary: 'Register status', detail:error.response.data.message, life: 3000});
             });
         },
     },

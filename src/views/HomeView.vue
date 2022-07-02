@@ -2,6 +2,6 @@
 </script>
 
 <template>
-  <main>
-  </main>
+  HOLAAAAAAAAAAA
 </template>
+

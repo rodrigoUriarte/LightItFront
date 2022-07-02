@@ -14,7 +14,7 @@ defineProps({
       Developed with:
       <a target="_blank" href="https://vitejs.dev/">Vite</a> +
       <a target="_blank" href="https://vuejs.org/">Vue 3</a> +
-      <a target="_blank" href="https://laravel.com//">Laravel</a> .
+      <a target="_blank" href="https://laravel.com//">Laravel</a>
     </h3>
   </div>
 </template>
