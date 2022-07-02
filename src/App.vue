@@ -1,27 +1,27 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from '@/components/HelloWorld.vue'
+  import { RouterLink, RouterView } from 'vue-router'
+  import HelloLightIt from '@/components/HelloLightIt.vue'
+
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <img alt="Light It Logo" class="logo" src="@/assets/lightItLogo.png" width="125" height="125"/>
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+      <HelloLightIt msg="Welcome to my code challenge!"/>
 
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink class="px-7 py-3 rounded" to="/login">Login</RouterLink>
+        <RouterLink class="px-7 py-3 rounded" to="/register">Register</RouterLink>
       </nav>
     </div>
   </header>
-
-  <RouterView />
+  <RouterView/>
 </template>
 
 <style>
-@import '@/assets/base.css';
+@import '/src/assets/base.css';
 
 #app {
   max-width: 1280px;
@@ -41,16 +41,13 @@ header {
   margin: 0 auto 2rem;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
+a {
   transition: 0.4s;
 }
 
 @media (hover: hover) {
   a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+    background-color: rgb(167 139 250);
   }
 }
 
