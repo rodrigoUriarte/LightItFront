@@ -1,45 +1,31 @@
-<script setup>
-  import { RouterLink, RouterView } from 'vue-router'
-  import HelloLightIt from '@/components/HelloLightIt.vue'
-
-</script>
-
 <template>
-  <header>
-    <img alt="Light It Logo" class="logo" src="@/assets/lightItLogo.png" width="125" height="125"/>
+  <section class="h-screen">
+    <div class="px-6 h-full text-gray-800">
+      <div class="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full">
+        <div class="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0">
+          <img alt="Light It Logo" class="mx-auto" src="@/assets/lightItLogo.png" width="125" height="125"/>
 
-    <div class="wrapper">
-      <HelloLightIt msg="Welcome to my code challenge!"/>
+          <HelloLightIt msg="Welcome to my code challenge!"/>
 
-      <nav>
-        <RouterLink class="px-7 py-3 rounded" to="/login">Login</RouterLink>
-        <RouterLink class="px-7 py-3 rounded" to="/register">Register</RouterLink>
-      </nav>
+          <nav class="flex justify-center">
+            <RouterLink class="px-7 py-3 rounded" to="/login">Login</RouterLink>
+            <RouterLink class="px-7 py-3 rounded" to="/register">Register</RouterLink>
+          </nav>
+        </div>
+        <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
+          <router-view></router-view>
+        </div>
+      </div>
     </div>
-  </header>
-  <RouterView/>
+  </section>
 </template>
+
+<script setup>
+  import HelloLightIt from '@/components/HelloLightIt.vue'
+</script>
 
 <style>
 @import '/src/assets/base.css';
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
-}
-
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
 
 a {
   transition: 0.4s;
@@ -53,7 +39,7 @@ a {
 
 nav {
   width: 100%;
-  font-size: 12px;
+  font-size: 1rem;
   text-align: center;
 }
 
@@ -75,38 +61,4 @@ nav a:first-of-type {
   border: 0;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  nav {
-    text-align: left;
-    font-size: 1rem;
-    padding: 1rem 0;
-  }
-}
 </style>

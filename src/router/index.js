@@ -7,8 +7,21 @@ const router = createRouter({
         {
             path: '/',
             name: 'home',
-            component: HomeView
+            component: HomeView,
+            children: [
+                {
+                    path: '/diagnosis',
+                    name: 'diagnosis',
+                    component: () => import('../views/Diagnosis.vue')
+                },
+                {
+                    path: '/historic',
+                    name: 'historic',
+                    component: () => import('../views/Historic.vue')
+                },
+            ]
         },
+
         {
             path: '/auth',
             name: 'auth',

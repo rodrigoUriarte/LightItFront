@@ -32,7 +32,7 @@ export const useAuthUser = defineStore('authUser', {
                     this.token.token = response.data.token.token;
                     this.token.expires_at = response.data.token.expires_at;
                     this.$toast.add({severity:'success', summary: 'Login status', detail:'Successfully loggedIn', life: 3000});
-                    this.$router.push({name: 'home'});
+                    this.$router.push({name: 'diagnosis'});
                 }
             }).catch((error) => {
                 this.$toast.add({severity:'error', summary: 'Register status', detail:error.response.data.message, life: 3000});
