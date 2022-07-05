@@ -10,19 +10,19 @@
       <div class="formgrid grid">
 
         <div class="field col-12">
-            <span class="p-float-label">
-              <MultiSelect
-                v-model="fields.symptoms"
-                :options="symptoms"
-                :filter="true"
-                optionLabel="name"
-                optionValue="id"
-                display="chip"
-                style="width: 100%"
-                v-tooltip.bottom="'Select your symptoms'"
-              />
-              <label>Symptoms</label>
-            </span>
+          <span class="p-float-label">
+            <MultiSelect
+              v-model="fields.symptoms"
+              :options="symptoms"
+              :filter="true"
+              optionLabel="name"
+              optionValue="id"
+              display="chip"
+              style="width: 100%"
+              v-tooltip.bottom="'Select your symptoms'"
+            />
+            <label>Symptoms</label>
+          </span>
         </div>
 
       </div>
@@ -49,8 +49,27 @@
   const validationMessage = ref('');
   const symptoms = ref([]);
 
-  //ref functions
-  const  getSymptoms = async() => {
+  //functions
+  const getDiagnosis = async () => {
+    await $axios.get(`http://localhost/api/getDiagnosis?${fields.symptoms.map((n, index) => `symptoms[${index}]=${n}`).join('&')}`, {
+      params: {
+        gender: fields.gender,
+        birthday: fields.birthday,
+      },
+    }).then((resp) => {
+      console.log(resp);
+      const response = resp.data;
+      if (response.metadata.code === 200) {
+        //symptoms.value = response.data;
+        //this.$toast.add({severity:'success', summary: 'Login status', detail:'Successfully loggedIn', life: 3000});
+      }
+    }).catch((error) => {
+      console.log(error)
+      //this.$toast.add({severity:'error', summary: 'Register status', detail:error.response.data.message, life: 3000});
+    });
+  }
+
+  const getSymptoms = async () => {
     await $axios.get(`http://localhost/api/getSymptoms`).then((resp) => {
       console.log(resp);
       const response = resp.data;
@@ -59,15 +78,18 @@
         //this.$toast.add({severity:'success', summary: 'Login status', detail:'Successfully loggedIn', life: 3000});
       }
     }).catch((error) => {
-      this.$toast.add({severity:'error', summary: 'Register status', detail:error.response.data.message, life: 3000});
+      this.$toast.add({severity: 'error', summary: 'Register status', detail: error.response.data.message, life: 3000});
     });
   }
 
   const save = () => {
     loading.value = true;
     console.log(fields);
+    getDiagnosis();
+    loading.value = false;
 
   }
+
 
   onMounted(() => {
     getSymptoms();
