@@ -34,6 +34,7 @@
   import CardForm from "@/components/CardForm.vue";
   import {inject, onMounted, reactive, ref} from "vue";
   import {useAuthUser} from "../stores/auth/useAuthUser";
+  import qs from 'qs';
 
   const $axios = inject('axios');
   const authUser = useAuthUser();
@@ -51,11 +52,15 @@
 
   //functions
   const getDiagnosis = async () => {
-    await $axios.get(`http://localhost/api/getDiagnosis?${fields.symptoms.map((n, index) => `symptoms[${index}]=${n}`).join('&')}`, {
+    await $axios.get(`http://localhost/api/getDiagnosis`, {
       params: {
+        symptoms: fields.symptoms,
         gender: fields.gender,
         birthday: fields.birthday,
       },
+      paramsSerializer: params => {
+        return qs.stringify(params)
+      }
     }).then((resp) => {
       console.log(resp);
       const response = resp.data;
