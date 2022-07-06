@@ -16,7 +16,9 @@ import InlineMessage from 'primevue/inlinemessage';
 import Message from 'primevue/message';
 import Card from 'primevue/card';
 import MultiSelect from 'primevue/multiselect';
-
+import Chart from 'primevue/chart';
+import Column from 'primevue/column';
+import DataTable from 'primevue/datatable';
 import Tooltip from 'primevue/tooltip';
 import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
@@ -43,6 +45,7 @@ const app = createApp(App)
 
 app.component('Avatar', Avatar);
 app.component('Button', Button);
+app.component('Chart', Chart);
 app.component('Dialog', Dialog);
 app.component('InputText', InputText);
 app.component('InlineMessage', InlineMessage);
@@ -50,6 +53,9 @@ app.component('Toast', Toast);
 app.component('Message', Message);
 app.component('Card', Card);
 app.component('MultiSelect', MultiSelect);
+app.component('Column', Column);
+app.component('DataTable', DataTable);
+
 app.directive('tooltip', Tooltip);
 app.use(ToastService);
 app.use(PrimeVue);

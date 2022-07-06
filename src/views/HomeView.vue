@@ -110,8 +110,8 @@
     email: 'tom@example.com',
   }
   const navigation = [
-    {name: 'Diagnosis', to: '/diagnosis'},
-    {name: 'Historic Diagnosis', to: '/historic'},
+    {name: 'Diagnostics', to: '/diagnostics'},
+    {name: 'Historic Diagnostics', to: '/historic'},
   ]
   const userNavigation = [
     {

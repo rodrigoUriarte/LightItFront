@@ -10,9 +10,9 @@ const router = createRouter({
             component: HomeView,
             children: [
                 {
-                    path: '/diagnosis',
-                    name: 'diagnosis',
-                    component: () => import('../views/Diagnosis.vue')
+                    path: '/diagnostics',
+                    name: 'diagnostics',
+                    component: () => import('../views/Diagnostics.vue')
                 },
                 {
                     path: '/historic',

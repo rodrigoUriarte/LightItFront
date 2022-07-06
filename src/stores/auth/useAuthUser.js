@@ -5,6 +5,7 @@ export const useAuthUser = defineStore('authUser', {
     state: () => {
         return {
             isLoggedIn: false,
+            id: '',
             name: '',
             email: '',
             gender: '',
@@ -25,6 +26,7 @@ export const useAuthUser = defineStore('authUser', {
                 const response = resp.data;
                 if (response.metadata.code === 200) {
                     this.isLoggedIn = true;
+                    this.id = response.data.id;
                     this.name = response.data.name;
                     this.gender = response.data.gender;
                     this.birthday = response.data.birthday;
@@ -32,7 +34,7 @@ export const useAuthUser = defineStore('authUser', {
                     this.token.token = response.data.token.token;
                     this.token.expires_at = response.data.token.expires_at;
                     this.$toast.add({severity:'success', summary: 'Login status', detail:'Successfully loggedIn', life: 3000});
-                    this.$router.push({name: 'diagnosis'});
+                    this.$router.push({name: 'diagnostics'});
                 }
             }).catch((error) => {
                 this.$toast.add({severity:'error', summary: 'Register status', detail:error.response.data.message, life: 3000});
