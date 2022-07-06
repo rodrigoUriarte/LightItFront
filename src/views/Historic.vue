@@ -81,7 +81,7 @@
 
       const confirmDiagnosis = async (data) => {
 
-        await axios.patch(`http://localhost/api/confirm_diagnosis/${data.id}`).then((resp) => {
+        await axios.patch(`http://localhost/api/confirmDiagnosis/${data.id}`).then((resp) => {
           const response = resp.data;
           if (response.metadata.code === 200) {
             data.confirmed = response.data.confirmed;

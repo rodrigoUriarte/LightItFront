@@ -3,7 +3,6 @@
     :title="title"
     :submitLabel="submitLabel"
     :loading="loading"
-    :validationMessage="validationMessage"
     v-on:save="save"
   >
     <template v-slot:content>
@@ -25,6 +24,16 @@
         </div>
 
       </div>
+    </template>
+
+    <template v-slot:footer>
+        <Button
+          class="p-button-secondary"
+          :disabled="loading"
+          label="Refresh Symptoms"
+          @click="refreshSymptoms"
+        >
+        </Button>
     </template>
   </CardForm>
   <Card
@@ -56,7 +65,6 @@
   const fields = reactive({
     symptoms: [],
   });
-  const validationMessage = ref('');
   const symptoms = ref([]);
   const diagnostics = ref([]);
 
@@ -84,9 +92,9 @@
       const response = resp.data;
       if (response.data.length === 0) {
         toast.add({
-          severity:'warn',
+          severity: 'warn',
           summary: 'Diagnostics information',
-          detail:'There are no diagnoses available for the selected symptoms. Please select others.',
+          detail: 'There are no diagnoses available for the selected symptoms. Please select others.',
           life: 3000
         });
       }
@@ -101,7 +109,7 @@
         });
       }
     }).catch((error) => {
-      toast.add({severity:'error', summary: 'Validation Error', detail:error.response.data.message, life: 3000});
+      toast.add({severity: 'error', summary: 'Validation Error', detail: error.response.data.message, life: 3000});
     });
   }
 
@@ -112,7 +120,20 @@
         symptoms.value = response.data;
       }
     }).catch((error) => {
-      toast.add({severity:'error', summary: 'Validation Error', detail:error.response.data.message, life: 3000});
+      toast.add({severity: 'error', summary: 'Validation Error', detail: error.response.data.message, life: 3000});
+    });
+  }
+
+  const refreshSymptoms = async () => {
+    await axios.patch(`http://localhost/api/clearSymptoms`).then((resp) => {
+      const response = resp.data;
+      if (response.metadata.code === 200 && response.data.cleared) {
+        getSymptoms().then(() => {
+          toast.add({severity: 'success', summary: 'Symptoms list refreshed', detail: '', life: 3000});
+        });
+      }
+    }).catch((error) => {
+      toast.add({severity: 'error', summary: 'Validation Error', detail: error.response.data.message, life: 3000});
     });
   }
 
