@@ -15,7 +15,7 @@
                   v-for="item in navigation"
                   :key="item.name"
                   :to="item.to"
-                  class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                  class="text-gray-300 hover:bg-lightit hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >{{ item.name }}
                 </router-link>
               </div>
@@ -28,8 +28,7 @@
                 <div>
                   <MenuButton
                     class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                    <Avatar icon="pi pi-user" size="large" style="background-color:#9c27b0; color: #ffffff"
-                            shape="circle"/>
+                    <Avatar icon="pi pi-user" size="large" style="background-color:#773dbd; color: #ffffff" shape="circle"/>
                   </MenuButton>
                 </div>
                 <transition enter-active-class="transition ease-out duration-100"
@@ -43,7 +42,7 @@
                     <MenuItem class="my-2">
                       <div class="flex items-center px-5">
                         <div class="flex-shrink-0">
-                          <Avatar icon="pi pi-user" style="background-color:#9c27b0; color: #ffffff" shape="circle"/>
+                          <Avatar icon="pi pi-user" style="background-color:#773dbd; color: #ffffff" shape="circle"/>
                         </div>
                         <div class="ml-3">
                           <div class="text-base font-medium leading-none">{{ authUser.name }}</div>
@@ -77,14 +76,14 @@
             v-for="item in navigation"
             :key="item.name"
             :to="item.to"
-            class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+            class="text-gray-300 hover:bg-lightit hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >{{ item.name }}
           </router-link>
         </div>
         <div class="pt-4 pb-3 border-t border-gray-700">
           <div class="flex items-center px-5">
             <div class="flex-shrink-0">
-              <Avatar icon="pi pi-user" style="background-color:#9c27b0; color: #ffffff" shape="circle"/>
+              <Avatar icon="pi pi-user" style="background-color:#773dbd; color: #ffffff" shape="circle"/>
             </div>
             <div class="ml-3">
               <div class="text-base font-medium leading-none text-white">{{ authUser.name }}</div>

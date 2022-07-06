@@ -40,7 +40,7 @@
         </button>
         <p class="text-sm font-semibold mt-2 pt-1 mb-0">
           Don't have an account?
-          <RouterLink class="px-3 py-3 rounded" to="/register">Register</RouterLink>
+          <RouterLink class="px-3 py-3 rounded hover:bg-lightit hover:text-white" to="/register">Register</RouterLink>
         </p>
       </div>
     </div>
