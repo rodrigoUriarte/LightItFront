@@ -45,9 +45,11 @@
   import {useAuthUser} from "../stores/auth/useAuthUser";
   import qs from 'qs';
   import useAuthAxios from "../composables/useAuthAxios";
+  import {useToast} from "primevue/usetoast";
 
   const authUser = useAuthUser();
   const axios = useAuthAxios();
+  const toast = useToast();
 
   // ref fields
   const title = ref('Get Diagnostic');
@@ -86,6 +88,14 @@
       }
     }).then((resp) => {
       const response = resp.data;
+      if (response.data.length === 0) {
+        toast.add({
+          severity:'warn',
+          summary: 'Diagnostics information',
+          detail:'There are no diagnoses available for the selected symptoms. Please select others.',
+          life: 3000
+        });
+      }
       if (response.metadata.code === 200) {
         diagnostics.value = response.data;
         basicData.value.datasets = diagnostics.value.map((diagnostic) => {
@@ -97,7 +107,7 @@
         });
       }
     }).catch((error) => {
-      console.log(error)
+      toast.add({severity:'error', summary: 'Validation Error', detail:error.response.data.message, life: 3000});
     });
   }
 
@@ -108,7 +118,7 @@
         symptoms.value = response.data;
       }
     }).catch((error) => {
-      console.log(error);
+      toast.add({severity:'error', summary: 'Validation Error', detail:error.response.data.message, life: 3000});
     });
   }
 

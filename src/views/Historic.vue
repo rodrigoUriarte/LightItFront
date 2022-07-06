@@ -9,9 +9,20 @@
       dataKey="id"
       :totalRecords="totalRecords"
       :loading="loading"
-      responsiveLayout="stack"
       @page="onPage($event)"
       class="static"
+      paginatorTemplate="
+        FirstPageLink
+        PrevPageLink
+        PageLinks
+        NextPageLink
+        LastPageLink
+        CurrentPageReport
+        RowsPerPageDropdown"
+      :rowsPerPageOptions="[10,20,50,100]"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} rows"
+      responsiveLayout="stack"
+      breakpoint="767px"
     >
       <Column field="name" header="Name"/>
       <Column field="accuracy" header="Accuracy"/>
@@ -46,19 +57,6 @@
 
   export default {
     setup() {
-      onMounted(() => {
-        loading.value = true;
-
-        lazyParams.value = {
-          first: 0,
-          rows: dt.value.rows,
-        };
-
-        loadLazyData();
-        loading.value = false;
-
-      })
-
       const axios = useAuthAxios();
       const authUser = useAuthUser();
 
@@ -70,9 +68,17 @@
 
       const loadLazyData = () => {
 
-        setTimeout(async () => {
+        setTimeout( () => {
           getHistoricDiagnostics()
         }, Math.random() * 1000 + 250);
+      };
+
+      const onPage = (event) => {
+        lazyParams.value.first = event.first;
+        lazyParams.value.limit = event.rows;
+        lazyParams.value.page = event.page +1;
+
+        loadLazyData();
       };
 
       const confirmDiagnosis = async (data) => {
@@ -106,13 +112,18 @@
         });
       }
 
-      const onPage = (event) => {
-        lazyParams.value.first = event.first;
-        lazyParams.value.rows = event.rows;
-        lazyParams.value.page = event.page +1;
+      onMounted(() => {
+        loading.value = true;
+
+        lazyParams.value = {
+          first: 0,
+          limit: dt.value.rows,
+        };
 
         loadLazyData();
-      };
+        loading.value = false;
+
+      })
 
       return {dt, loading, totalRecords, historicDiagnostics, lazyParams, onPage, confirmDiagnosis}
     }
