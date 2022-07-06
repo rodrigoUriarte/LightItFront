@@ -1,7 +1,7 @@
 <template>
   <CardForm
-    title="Get Diagnostic"
-    :backRoute="route"
+    :title="title"
+    :submitLabel="submitLabel"
     :loading="loading"
     :validationMessage="validationMessage"
     v-on:save="save"
@@ -18,10 +18,9 @@
               optionLabel="name"
               optionValue="id"
               display="chip"
-              style="width: 100%"
-              v-tooltip.bottom="'Select your symptoms'"
+              class="w-full"
             />
-            <label>Symptoms</label>
+            <label>Select your symptoms</label>
           </span>
         </div>
 
@@ -51,7 +50,8 @@
   const axios = useAuthAxios();
 
   // ref fields
-  const route = ref('/diagnostics');
+  const title = ref('Get Diagnostic');
+  const submitLabel = ref('Consult Diagnostics');
   const loading = ref(false);
   const fields = reactive({
     symptoms: [],

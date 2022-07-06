@@ -21,7 +21,6 @@ import Chart from 'primevue/chart';
 import Column from 'primevue/column';
 import DataTable from 'primevue/datatable';
 import Tag from 'primevue/tag';
-import Tooltip from 'primevue/tooltip';
 import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
 
@@ -63,5 +62,4 @@ app.use(pinia)
 app.use(router)
 app.use(VueAxios, axios)
 app.provide('axios', app.config.globalProperties.axios)  // provide 'axios'
-app.directive('tooltip', Tooltip);
 app.mount('#app')

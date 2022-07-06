@@ -11,6 +11,7 @@
       :loading="loading"
       responsiveLayout="stack"
       @page="onPage($event)"
+      class="static"
     >
       <Column field="name" header="Name"/>
       <Column field="accuracy" header="Accuracy"/>
@@ -23,7 +24,7 @@
           ></Tag>
         </template>
       </Column>
-      <Column :exportable="false">
+      <Column header="Actions" :exportable="false">
         <template #body="slotProps">
           <Button
             icon="pi pi-check"
