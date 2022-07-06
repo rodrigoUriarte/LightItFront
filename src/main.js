@@ -5,6 +5,7 @@ import {createPinia} from 'pinia'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 //primevue component imports
 import PrimeVue from 'primevue/config';
@@ -23,7 +24,6 @@ import Tag from 'primevue/tag';
 import Tooltip from 'primevue/tooltip';
 import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
-import {useToast} from "primevue/usetoast";
 
 //base css for layout and component library
 import './index.css'
@@ -34,13 +34,12 @@ import 'primeicons/primeicons.css'
 
 //create pinia store
 const pinia = createPinia()
-
-//inject router, axios and toast instances to pinia stores
+//inject persistedstate, router, axios and toast instances to pinia stores
 pinia.use(({store}) => {
     store.$router = markRaw(router)
     store.$axios = markRaw(axios)
-    store.$toast = markRaw(useToast())
 })
+pinia.use(piniaPluginPersistedstate)
 
 const app = createApp(App)
 
@@ -58,11 +57,11 @@ app.component('Column', Column);
 app.component('DataTable', DataTable);
 app.component('Tag', Tag);
 
-app.directive('tooltip', Tooltip);
-app.use(ToastService);
 app.use(PrimeVue);
+app.use(ToastService);
 app.use(pinia)
 app.use(router)
 app.use(VueAxios, axios)
 app.provide('axios', app.config.globalProperties.axios)  // provide 'axios'
+app.directive('tooltip', Tooltip);
 app.mount('#app')

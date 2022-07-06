@@ -87,6 +87,10 @@
 
   import {reactive, ref, computed} from 'vue'
   import {useAuthUser} from '@/stores/auth/useAuthUser';
+  import {useToast} from "primevue/usetoast";
+
+  const authUser = useAuthUser();
+  const toast = useToast();
 
   const genders = ref([
     {
@@ -98,8 +102,6 @@
       name: "Male",
     },
   ]);
-
-  const authUser = useAuthUser();
   const credentials = reactive({
     name: "",
     email: "",
@@ -126,7 +128,14 @@
   }));
 
   const register = () => {
-    authUser.register(credentials)
+    authUser.register(credentials).then((error) => {
+      if (error) {
+        toast.add({severity:'error', summary: 'Register status', detail:error.response.data.message, life: 3000});
+      } else {
+        toast.add({severity:'success', summary: 'Register status', detail:'Successfully loggedIn', life: 3000});
+      }
+    });
+
   }
 
 </script>

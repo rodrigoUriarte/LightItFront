@@ -23,14 +23,13 @@
           </div>
           <div class="hidden md:block">
             <div class="ml-4 flex items-center md:ml-6">
-
-
               <!-- Profile dropdown -->
               <Menu as="div" class="ml-3 relative">
                 <div>
                   <MenuButton
                     class="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                    <Avatar icon="pi pi-user" size="large" style="background-color:#9c27b0; color: #ffffff" shape="circle" />
+                    <Avatar icon="pi pi-user" size="large" style="background-color:#9c27b0; color: #ffffff"
+                            shape="circle"/>
                   </MenuButton>
                 </div>
                 <transition enter-active-class="transition ease-out duration-100"
@@ -40,9 +39,20 @@
                             leave-from-class="transform opacity-100 scale-100"
                             leave-to-class="transform opacity-0 scale-95">
                   <MenuItems
-                    class=" absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    class="absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <MenuItem class="my-2">
+                      <div class="flex items-center px-5">
+                        <div class="flex-shrink-0">
+                          <Avatar icon="pi pi-user" style="background-color:#9c27b0; color: #ffffff" shape="circle"/>
+                        </div>
+                        <div class="ml-3">
+                          <div class="text-base font-medium leading-none">{{ authUser.name }}</div>
+                          <div class="text-sm font-medium leading-none">{{ authUser.email }}</div>
+                        </div>
+                      </div>
+                    </MenuItem>
                     <MenuItem>
-                      <Button @click="logout">LOGOUT</Button>
+                      <Button class="w-full justify-center" @click="logout">LOGOUT</Button>
                     </MenuItem>
                   </MenuItems>
                 </transition>
@@ -74,11 +84,11 @@
         <div class="pt-4 pb-3 border-t border-gray-700">
           <div class="flex items-center px-5">
             <div class="flex-shrink-0">
-              <Avatar icon="pi pi-user" style="background-color:#9c27b0; color: #ffffff" shape="circle" />
+              <Avatar icon="pi pi-user" style="background-color:#9c27b0; color: #ffffff" shape="circle"/>
             </div>
             <div class="ml-3">
-              <div class="text-base font-medium leading-none text-white">{{ user.name }}</div>
-              <div class="text-sm font-medium leading-none text-gray-400">{{ user.email }}</div>
+              <div class="text-base font-medium leading-none text-white">{{ authUser.name }}</div>
+              <div class="text-sm font-medium leading-none text-gray-400">{{ authUser.email }}</div>
             </div>
           </div>
           <div class="mt-3 px-2 flex justify-end">
@@ -104,22 +114,17 @@
 <script setup>
   //app layout by https://tailwindui.com/components/application-ui/application-shells/stacked
   import {Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems} from '@headlessui/vue'
+  import {useAuthUser} from "@/stores/auth/useAuthUser";
+  import {ref} from "vue";
 
-  const user = {
-    name: 'Tom Cook',
-    email: 'tom@example.com',
-  }
-  const navigation = [
+  const authUser = useAuthUser();
+
+  const navigation = ref([
     {name: 'Diagnostics', to: '/diagnostics'},
-    {name: 'Historic Diagnostics', to: '/historic'},
-  ]
-  const userNavigation = [
-    {
-      name: 'Sign out',
-    },
-  ]
+    {name: 'Historic Diagnostics', to: '/historic'}
+  ]);
 
   const logout = () => {
-    console.log('LOGOUT')
+    authUser.logout();
   }
 </script>

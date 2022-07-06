@@ -51,8 +51,10 @@
 
   import {reactive, computed} from 'vue'
   import {useAuthUser} from '@/stores/auth/useAuthUser';
+  import {useToast} from "primevue/usetoast";
 
   const authUser = useAuthUser();
+  const toast = useToast();
   const credentials = reactive({
     email: "",
     password: "",
@@ -62,8 +64,15 @@
     'bg-gray-400': credentials.email === "" || credentials.password === "",
   }));
 
-  const login = () => {
-    authUser.login(credentials)
+  const login = async () => {
+    authUser.login(credentials).then((error) => {
+      if (error) {
+        toast.add({severity:'error', summary: 'Login status', detail:error.response.data.message, life: 3000});
+      } else {
+        toast.add({severity:'success', summary: 'Login status', detail:'Successfully loggedIn', life: 3000});
+      }
+    });
+
   }
 
 </script>

@@ -16,13 +16,14 @@ export const useAuthUser = defineStore('authUser', {
             },
         }
     },
+    persist: true,
     actions: {
 
         async login(credentials) {
-
-            await this.$axios.post(`http://localhost/api/login`, {
-                ...credentials
-            }).then((resp) => {
+            try {
+                let resp = await this.$axios.post(`http://localhost/api/login`, {
+                    ...credentials
+                })
                 const response = resp.data;
                 if (response.metadata.code === 200) {
                     this.isLoggedIn = true;
@@ -33,27 +34,33 @@ export const useAuthUser = defineStore('authUser', {
                     this.email = response.data.email;
                     this.token.token = response.data.token.token;
                     this.token.expires_at = response.data.token.expires_at;
-                    this.$toast.add({severity:'success', summary: 'Login status', detail:'Successfully loggedIn', life: 3000});
                     this.$router.push({name: 'diagnostics'});
                 }
-            }).catch((error) => {
-                this.$toast.add({severity:'error', summary: 'Register status', detail:error.response.data.message, life: 3000});
-            });
+            } catch (error) {
+                return error;
+            }
         },
 
         async register(credentials) {
+            try {
+                await this.$axios.post(`http://localhost/api/register`, {
+                    ...credentials
+                });
+            } catch (error) {
+                return error;
+            }
+        },
 
-            await this.$axios.post(`http://localhost/api/register`, {
-                ...credentials
-            }).then((resp) => {
-                const response = resp.data;
-                if (response.metadata.code === 201) {
-                    this.$toast.add({severity:'success', summary: 'Register status', detail:'Successfully registered', life: 3000});
-                    this.$router.push({name: 'login'});
-                }
-            }).catch((error) => {
-                this.$toast.add({severity:'error', summary: 'Register status', detail:error.response.data.message, life: 3000});
-            });
+        logout() {
+            this.isLoggedIn = false;
+            this.id = '';
+            this.name = '';
+            this.gender = '';
+            this.birthday = '';
+            this.email = '';
+            this.token.token = '';
+            this.token.expires_at = '';
+            this.$router.push({name: 'login'});
         },
     },
 })

@@ -83,7 +83,6 @@
           }
         }).catch((error) => {
           console.log(error);
-          //this.$toast.add({severity: 'error', summary: 'Register status', detail: error.response.data.message, life: 3000});
         });
       }
 
@@ -103,7 +102,6 @@
           }
         }).catch((error) => {
           console.log(error);
-          //this.$toast.add({severity: 'error', summary: 'Register status', detail: error.response.data.message, life: 3000});
         });
       }
 
