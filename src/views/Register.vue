@@ -97,10 +97,6 @@
       id: "male",
       name: "Male",
     },
-    {
-      id: "others",
-      name: "Others",
-    },
   ]);
 
   const authUser = useAuthUser();

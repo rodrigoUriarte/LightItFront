@@ -14,7 +14,25 @@
     >
       <Column field="name" header="Name"/>
       <Column field="accuracy" header="Accuracy"/>
-
+      <Column field="confirmed" header="Diagnosis Confirmed">
+        <template #body="slotProps">
+          <Tag
+            class="mr-2"
+            :severity="slotProps.data.confirmed?'success':'warning'"
+            :value="slotProps.data.confirmed?'Confirmed':'Not Confirmed'"
+          ></Tag>
+        </template>
+      </Column>
+      <Column :exportable="false">
+        <template #body="slotProps">
+          <Button
+            icon="pi pi-check"
+            label="Confirm Diagnosis"
+            class="p-button-rounded p-button-success mr-2"
+            @click="confirmDiagnosis(slotProps.data)"
+          />
+        </template>
+      </Column>
     </DataTable>
   </div>
 </template>
@@ -52,25 +70,42 @@
       const loadLazyData = () => {
 
         setTimeout(async () => {
-          await axios.get(`http://localhost/api/getHistoricDiagnostics`, {
-            params: {
-              user_id: authUser.id,
-              ...lazyParams.value
-            }, paramsSerializer: params => {
-              return qs.stringify(params)
-            }
-          }).then((resp) => {
-            const response = resp.data;
-            if (response.metadata.code === 200) {
-              historicDiagnostics.value = response.data;
-              totalRecords.value = response.pagination.total;
-            }
-          }).catch((error) => {
-            console.log(error);
-            //this.$toast.add({severity: 'error', summary: 'Register status', detail: error.response.data.message, life: 3000});
-          });
+          getHistoricDiagnostics()
         }, Math.random() * 1000 + 250);
       };
+
+      const confirmDiagnosis = async (data) => {
+
+        await axios.patch(`http://localhost/api/confirm_diagnosis/${data.id}`).then((resp) => {
+          const response = resp.data;
+          if (response.metadata.code === 200) {
+            data.confirmed = response.data.confirmed;
+          }
+        }).catch((error) => {
+          console.log(error);
+          //this.$toast.add({severity: 'error', summary: 'Register status', detail: error.response.data.message, life: 3000});
+        });
+      }
+
+      const getHistoricDiagnostics = async () => {
+        await axios.get(`http://localhost/api/getHistoricDiagnostics`, {
+          params: {
+            user_id: authUser.id,
+            ...lazyParams.value
+          }, paramsSerializer: params => {
+            return qs.stringify(params)
+          }
+        }).then((resp) => {
+          const response = resp.data;
+          if (response.metadata.code === 200) {
+            historicDiagnostics.value = response.data;
+            totalRecords.value = response.pagination.total;
+          }
+        }).catch((error) => {
+          console.log(error);
+          //this.$toast.add({severity: 'error', summary: 'Register status', detail: error.response.data.message, life: 3000});
+        });
+      }
 
       const onPage = (event) => {
         lazyParams.value.first = event.first;
@@ -80,8 +115,7 @@
         loadLazyData();
       };
 
-
-      return {dt, loading, totalRecords, historicDiagnostics, lazyParams, loadLazyData, onPage}
+      return {dt, loading, totalRecords, historicDiagnostics, lazyParams, onPage, confirmDiagnosis}
     }
   }
 </script>

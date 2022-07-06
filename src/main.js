@@ -19,6 +19,7 @@ import MultiSelect from 'primevue/multiselect';
 import Chart from 'primevue/chart';
 import Column from 'primevue/column';
 import DataTable from 'primevue/datatable';
+import Tag from 'primevue/tag';
 import Tooltip from 'primevue/tooltip';
 import ToastService from 'primevue/toastservice';
 import Toast from 'primevue/toast';
@@ -55,6 +56,7 @@ app.component('Card', Card);
 app.component('MultiSelect', MultiSelect);
 app.component('Column', Column);
 app.component('DataTable', DataTable);
+app.component('Tag', Tag);
 
 app.directive('tooltip', Tooltip);
 app.use(ToastService);

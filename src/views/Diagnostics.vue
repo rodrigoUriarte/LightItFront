@@ -1,6 +1,6 @@
 <template>
   <CardForm
-    title="Get Diagnostics"
+    title="Get Diagnostic"
     :backRoute="route"
     :loading="loading"
     :validationMessage="validationMessage"
