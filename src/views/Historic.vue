@@ -52,13 +52,11 @@
 <script>
   import {ref, onMounted} from 'vue';
   import useAuthAxios from "../composables/useAuthAxios";
-  import {useAuthUser} from "../stores/auth/useAuthUser";
   import qs from "qs";
 
   export default {
     setup() {
       const axios = useAuthAxios();
-      const authUser = useAuthUser();
 
       const dt = ref();
       const loading = ref(false);
@@ -96,7 +94,6 @@
       const getHistoricDiagnostics = async () => {
         await axios.get(`http://localhost/api/getHistoricDiagnostics`, {
           params: {
-            user_id: authUser.id,
             ...lazyParams.value
           }, paramsSerializer: params => {
             return qs.stringify(params)

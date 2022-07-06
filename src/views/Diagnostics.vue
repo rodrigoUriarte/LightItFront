@@ -42,12 +42,10 @@
 <script setup>
   import CardForm from "@/components/CardForm.vue";
   import {onMounted, reactive, ref} from "vue";
-  import {useAuthUser} from "../stores/auth/useAuthUser";
   import qs from 'qs';
   import useAuthAxios from "../composables/useAuthAxios";
   import {useToast} from "primevue/usetoast";
 
-  const authUser = useAuthUser();
   const axios = useAuthAxios();
   const toast = useToast();
 
@@ -57,8 +55,6 @@
   const loading = ref(false);
   const fields = reactive({
     symptoms: [],
-    gender: authUser.gender,
-    birthday: authUser.birthday,
   });
   const validationMessage = ref('');
   const symptoms = ref([]);
@@ -80,8 +76,6 @@
     await axios.get(`http://localhost/api/getDiagnostics`, {
       params: {
         symptoms: fields.symptoms,
-        gender: fields.gender,
-        birthday: fields.birthday,
       },
       paramsSerializer: params => {
         return qs.stringify(params)
