@@ -132,7 +132,7 @@
       if (error) {
         toast.add({severity:'error', summary: 'Register status', detail:error.response.data.message, life: 3000});
       } else {
-        toast.add({severity:'success', summary: 'Register status', detail:'Successfully loggedIn', life: 3000});
+        toast.add({severity:'success', summary: 'Register status', detail:'Successfully registered', life: 3000});
       }
     });
 

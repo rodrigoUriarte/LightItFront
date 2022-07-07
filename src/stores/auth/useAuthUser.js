@@ -46,6 +46,7 @@ export const useAuthUser = defineStore('authUser', {
                 await this.$axios.post(`http://localhost/api/register`, {
                     ...credentials
                 });
+                this.$router.push({name: 'login'});
             } catch (error) {
                 return error;
             }
