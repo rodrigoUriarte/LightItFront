@@ -39,6 +39,15 @@
       </div>
 
       <div class="mb-6">
+        <input
+          v-model="credentials.password_confirmation"
+          type="password"
+          class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white border border-solid border-indigo-300 rounded"
+          placeholder="Password Confirmation"
+        />
+      </div>
+
+      <div class="mb-6">
         <select
           v-model="credentials.gender"
           class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white border border-solid border-indigo-300 rounded "
@@ -97,6 +106,7 @@
     name: "",
     email: "",
     password: "",
+    password_confirmation: "",
     gender: "",
     birthday: "",
   });
@@ -105,12 +115,14 @@
       credentials.name &&
       credentials.email &&
       credentials.password &&
+      credentials.password_confirmation &&
       credentials.gender &&
       credentials.birthday,
     'bg-gray-400':
       !credentials.name ||
       !credentials.email ||
       !credentials.password ||
+      !credentials.password_confirmation ||
       !credentials.gender ||
       !credentials.birthday,
   }));
