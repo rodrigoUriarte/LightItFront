@@ -24,6 +24,12 @@
       responsiveLayout="stack"
       breakpoint="767px"
     >
+      <template #loading>
+        Loading records, please wait...
+      </template>
+      <template #empty>
+        No records found.
+      </template>
       <Column field="name" header="Name"/>
       <Column field="accuracy" header="Accuracy"/>
       <Column field="confirmed" header="Diagnosis Confirmed">
@@ -66,9 +72,14 @@
 
       const loadLazyData = () => {
 
+        loading.value = true;
+
         setTimeout( () => {
           getHistoricDiagnostics()
         }, Math.random() * 1000 + 250);
+
+        loading.value = false;
+
       };
 
       const onPage = (event) => {
@@ -110,7 +121,6 @@
       }
 
       onMounted(() => {
-        loading.value = true;
 
         lazyParams.value = {
           first: 0,
@@ -118,8 +128,6 @@
         };
 
         loadLazyData();
-        loading.value = false;
-
       })
 
       return {dt, loading, totalRecords, historicDiagnostics, lazyParams, onPage, confirmDiagnosis}
