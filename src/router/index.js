@@ -23,6 +23,7 @@ const router = createRouter({
                     meta: {requiresAuth: true},
                 },
             ],
+            meta: {requiresAuth: true},
         },
 
         {
